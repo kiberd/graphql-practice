@@ -22,7 +22,7 @@ const httpLink = createHttpLink({
 // Generate and set the header with the auth details
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from env variables if it exists
-  const token = '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';
+  const token = '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';
 
   // return the headers to the context so httpLink can read them
   return {

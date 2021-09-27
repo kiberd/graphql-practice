@@ -1,27 +1,39 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useQuery, gql } from "@apollo/client";
 
-const COMMIT_HISTORY = gql`
-  query {
-    repository(owner: "kiberd", name: "movie-app") {
-      url
-      createdAt
-      pushedAt
-      defaultBranchRef {
-        target {
-          ... on Commit {
-            history(first: 10) {
-              edges {
-                node {
-                  oid
-                  committedDate
-                  author {
-                    name
-                  }
-                  messageHeadline
-                  commitUrl
+const REPOSITORY_INFO = gql`
+{
+  search(query: "javascript", type:REPOSITORY, first: 50) {
+    edges {
+      node {
+        ... on Repository { 
+          name
+          owner{
+            login            
+          }
+          homepageUrl
+          description
+          createdAt
+          diskUsage
+          forkCount
+          issues(first:10){
+            edges{
+              node{
+                number
+                author{
+                  login
                 }
+                body
+                bodyUrl
+                closed
+                closedAt
+              }
+            }
+          }
+          assignableUsers(first:10){
+            edges{
+              node{
+                login
               }
             }
           }
@@ -29,7 +41,39 @@ const COMMIT_HISTORY = gql`
       }
     }
   }
+}
 `;
+
+const USER_INFO = gql`
+{
+  search(query: "javascript", type:REPOSITORY, first: 50) {
+    edges {
+      node {
+         ... on User {
+          login
+          email
+          location
+          avatarUrl
+          createdAt
+          issues(first:10){
+            edges{
+              node{
+                number
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+`;
+
+
+
+
 
 function App() {
   const { loading, error, data } = useQuery(COMMIT_HISTORY);
@@ -42,17 +86,13 @@ function App() {
   //   commits = data.repository.defaultBranchRef.target.history.edges.node;
   //   console.log(commits);
   // }
-  console.log(data.repository.defaultBranchRef.target.history.edges);
 
-  const commits = data.repository.defaultBranchRef.target.history.edges;
+  console.log(data);
+  
 
   return (
     <div>
-       {data
-          ? commits.map((commit) => {
-             <div>{commit.node.commitUrl}</div>
-            })
-          : null}
+      dddd
     </div>
   );
 }
