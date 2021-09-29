@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+# Search github contents with GraphQL open API
 
-1. https://github.com/settings/apps 에서 token 발급 후 
+1. Generate token ->  https://github.com/settings/apps
 
-2. /src/key.js 생성 후 다음 과 같이 입력 -> export const API_KEY = '발급받은토큰';
+2. Make /src/key.js  -> export const API_KEY = 'TOKEN';
 
 3. yarn
 
