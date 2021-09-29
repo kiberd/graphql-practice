@@ -3,16 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import {API_KEY} from '../src/key';
 
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
-
-// const client = new ApolloClient({
-//   uri: "https://api.github.com/graphql",
-//   cache: new InMemoryCache(),
-// });
-
-
 
 // Create the http link
 const httpLink = createHttpLink({
@@ -22,7 +16,7 @@ const httpLink = createHttpLink({
 // Generate and set the header with the auth details
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from env variables if it exists
-  const token = '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';
+  const token = API_KEY;
 
   // return the headers to the context so httpLink can read them
   return {
